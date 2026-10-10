@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encantillo - Historia, amor y sabor en un platillo con mucho color</title>
+    <!-- Librería AOS para animaciones al hacer scroll -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* PALETA DE COLORES CÁLIDOS CON ESENCIA COLOMBIANA Y SALTEADO */
+        :root {
+            --primary-orange: #E65100;
+            --secondary-yellow: #FFB300;
+            --coral-red: #D84315;
+            --accent-green: #2E7D32;
+            --bg-cream: #FFFDF9;
+            --text-dark: #212121;
+            --card-white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            padding-bottom: 90px;
+            overflow-x: hidden;
+        }
+
+        /* BANNER SUPERIOR CON LA FRASE DE ENTRADA */
+        .slogan-top {
+            background: linear-gradient(90deg, #E65100, #FFB300, #D84315);
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 10px 15px;
+            text-align: center;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        header {
+            background-color: #FFFFFF;
+            padding: 15px 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--primary-orange);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .logo span {
+            color: var(--secondary-yellow);
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* HERO SECTION Y CONCEPTO */
+        .hero {
+            text-align: center;
+            padding: 35px 20px;
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            border-radius: 24px;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 20px rgba(230, 81, 0, 0.08);
+        }
+
+        .hero h1 {
+            color: var(--primary-orange);
+            font-size: 30px;
+            margin-bottom: 15px;
+            line-height: 1.25;
+            font-weight: 800;
+        }
+
+        .concept-box {
+            background-color: rgba(255, 255, 255, 0.92);
+            padding: 22px;
+            border-radius: 16px;
+            border-left: 5px solid var(--primary-orange);
+            margin: 20px 0;
+            text-align: left;
+            font-size: 15px;
+            color: #333333;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .btn-cta {
+            background-color: var(--primary-orange);
+            color: #FFFFFF;
+            padding: 16px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(230, 81, 0, 0.35);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            background-color: #BF360C;
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-orange);
+            font-size: 26px;
+            margin-bottom: 25px;
+            font-weight: 800;
+        }
+
+        /* TARJETAS DE PRODUCTO CON IMÁGENES */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .product-card {
+            background: var(--card-white);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            border: 2px solid #FFF3E0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-img-wrapper {
+            width: 100%;
+            height: 230px;
+            background-color: #FFF3E0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-price {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--primary-orange);
+            margin: 10px 0;
+        }
+
+        /* INGREDIENTES Y BENEFICIOS */
+        .ingredients-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .ingredient-item {
+            background: white;
+            padding: 16px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+            border-bottom: 3px solid var(--secondary-yellow);
+        }
+
+        .ingredient-item .icon {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        .ingredient-item span {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .benefits-card {
+            background: #E8F5E9;
+            border-left: 6px solid var(--accent-green);
+            padding: 22px;
+            border-radius: 16px;
+            margin-bottom: 40px;
+        }
+
+        .benefits-card h3 {
+            color: var(--accent-green);
+            margin-top: 0;
+        }
+
+        /* PROMOCIONES */
+        .promo-card {
+            background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%);
+            border: 2px dashed var(--secondary-yellow);
+            border-radius: 20px;
+            padding: 22px;
+            margin-bottom: 20px;
+        }
+
+        .promo-card h3 {
+            color: var(--primary-orange);
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        /* CONTEO REGRESIVO */
+        .timer-section {
+            background: linear-gradient(135deg, #212121 0%, #424242 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 24px;
+            text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+        .timer-title {
+            color: var(--secondary-yellow);
+            font-size: 22px;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .timer-display {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .time-block {
+            background: rgba(255,255,255,0.1);
+            padding: 12px 16px;
+            border-radius: 12px;
+            min-width: 65px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .time-number {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--secondary-yellow);
+            display: block;
+        }
+
+        .time-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #CCCCCC;
+        }
+
+        /* BOTÓN STICKY FLOTANTE INFERIOR */
+        .sticky-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #FFFFFF;
+            padding: 12px 20px;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.12);
+            text-align: center;
+            z-index: 1000;
+        }
+
+        .btn-sticky {
+            background-color: var(--primary-orange);
+            color: #FFFFFF;
+            padding: 14px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- FRASE INICIAL DE BIENVENIDA -->
+    <div class="slogan-top">
+        ✨ "Historia, amor y sabor en un platillo con mucho color" ✨
+    </div>
+
+    <!-- HEADER / LOGO -->
+    <header>
+        <div class="logo">Encant<span>illo</span> 🌾</div>
+    </header>
+
+    <div class="container">
+
+        <!-- HERO SECTION Y CONCEPTO DE EMPRENDIMIENTO -->
+        <section class="hero" data-aos="fade-up">
+            <h1>El Auténtico Arroz Criollo Mixto</h1>
+            
+            <div class="concept-box" data-aos="zoom-in" data-aos-delay="200">
+                <strong>🌾 Sobre Encantillo:</strong>
+                <p style="margin: 8px 0 0 0;">
+                    <strong>Encantillo</strong> es un emprendimiento escolar gastronómico diseñado para deleitar a la comunidad educativa mediante una propuesta llena de sazón, color y tradición artesanal. Nuestro Arroz Criollo Mixto combina trozos jugosos de carne de res, cerdo, pollo desmechado, chorizo, salchicha, mazorca dulce y verduras salteadas al instante. Una opción completa, deliciosa y abundante pensada para compartir y recargarse de energía durante la feria empresarial.
+                </p>
+            </div>
+
+            <a href="https://instagram.com/Encantillo_coljp?text=Hola!%20Me%20interesa%20este%20producto" class="btn-cta">
+                📩 Pedir por DM a @Encantillo_coljp
+            </a>
+        </section>
+
+        <!-- PRODUCTOS CON LAS IMÁGENES EXACTAS SUBIDAS -->
+        <section>
+            <h2 class="section-title" data-aos="fade-up">Nuestro Menú de la Feria</h2>
+
+            <div class="products-grid">
+                
+                <!-- PRODUCTO 1: $3.000 (Plato de Icopor 12 oz) -->
+                <div class="product-card" data-aos="fade-right">
+                    <div class="product-img-wrapper">
+                        <img src="Captura de pantalla 2026-10-09 191406.jpg" alt="Arroz Criollo en plato de icopor de 12 oz">
+                    </div>
+                    <div class="product-info">
+                        <h3>Arroz Criollo Personal (12 oz)</h3>
+                        <p style="font-size: 14px; color: #666;">Servido bien caliente en plato de icopor de 12 oz con carne de res, cerdo, pollo, chorizo, salchicha, mazorca y verduras.</p>
+                        <div class="product-price">$3.000 COP</div>
+                        <a href="https://instagram.com/Encantillo_coljp?text=Hola!%20Me%20interesa%20este%20producto" class="btn-cta" style="font-size: 15px; padding: 12px 20px;">
+                            🛒 Comprar por $3.000
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PRODUCTO 2: $3.500 (Plato de Icopor 12 oz + Vaso con Gaseosa) -->
+                <div class="product-card" data-aos="fade-left">
+                    <div class="product-img-wrapper">
+                        <img src="Captura de pantalla 2026-10-09 191342.jpg" alt="Plato de icopor de 12 oz con Arroz Criollo y Vaso desechable con gaseosa">
+                    </div>
+                    <div class="product-info">
+                        <h3>Combo Encantillo + Bebida</h3>
+                        <p style="font-size: 14px; color: #666;">Plato de icopor de 12 oz de Arroz Criollo + Vaso desechable servido con gaseosa bien fría con hielo.</p>
+                        <div class="product-price">$3.500 COP</div>
+                        <a href="https://instagram.com/Encantillo_coljp?text=Hola!%20Me%20interesa%20este%20producto" class="btn-cta" style="font-size: 15px; padding: 12px 20px;">
+                            🥤 Comprar Combo por $3.500
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- INGREDIENTES SELECCIONADOS -->
+        <section data-aos="fade-up">
+            <h2 class="section-title">Ingredientes de Primera Calidad</h2>
+            <div class="ingredients-grid">
+                <div class="ingredient-item"><div class="icon">🥩</div><span>Carne de Res</span></div>
+                <div class="ingredient-item"><div class="icon">🐖</div><span>Carne de Cerdo</span></div>
+                <div class="ingredient-item"><div class="icon">🍗</div><span>Pollo Jugoso</span></div>
+                <div class="ingredient-item"><div class="icon">🌭</div><span>Chorizo</span></div>
+                <div class="ingredient-item"><div class="icon">🌭</div><span>Salchicha</span></div>
+                <div class="ingredient-item"><div class="icon">🌽</div><span>Mazorca Dulce</span></div>
+                <div class="ingredient-item"><div class="icon">🫑</div><span>Verduras</span></div>
+            </div>
+        </section>
+
+        <!-- BENEFICIOS PARA LA COMUNIDAD -->
+        <section data-aos="zoom-in">
+            <div class="benefits-card">
+                <h3>🌱 Beneficios y Aporte a la Comunidad Escolar</h3>
+                <ul style="padding-left: 20px; margin: 0;">
+                    <li style="margin-bottom: 8px;"><strong>Energía Nutritiva Completa:</strong> La combinación de 5 proteínas con verduras salteadas aporta la nutrición necesaria para el rendimiento escolar durante el día.</li>
+                    <li style="margin-bottom: 8px;"><strong>Alternativa Saludable:</strong> Sustituye los snacks procesados por un plato artesanal completo y recién preparado.</li>
+                    <li><strong>Integración Escolar:</strong> Favorece momentos para compartir en grupo mediante combos accesibles pensados para los descansos.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- PROMOCIONES ESPECIALES -->
+        <section data-aos="fade-up">
+            <h2 class="section-title">🔥 Promociones Imperdibles</h2>
+
+            <div class="promo-card">
+                <h3>👥 Promo Amigos (2 Arroces + 1 Bebida)</h3>
+                <p>Disfruta con tu compañero: 2 platos de Arroz Criollo (12 oz c/u) + 1 vaso con gaseosa por solo <strong>$6.500 COP</strong>.</p>
+                <br>
+                <a href="https://instagram.com/Encantillo_coljp?text=Hola!%20Me%20interesa%20este%20producto" class="btn-cta" style="font-size: 14px; padding: 10px 20px;">Pedir Promo Amigos</a>
+            </div>
+
+            <div class="promo-card">
+                <h3>⏰ Promo Madrugador (Pre-orden por Instagram)</h3>
+                <p>Aparta tu pedido por mensaje directo a <strong>@Encantillo_coljp</strong> antes de las 9:00 am y llévatelo a solo <strong>$3.200 COP</strong>.</p>
+                <br>
+                <a href="https://instagram.com/Encantillo_coljp?text=Hola!%20Me%20interesa%20este%20producto" class="btn-cta" style="font-size: 14px; padding: 10px 20px;">Aparta por $3.200</a>
+            </div>
+        </section>
+
+        <!-- RELOJ CONTEO REGRESIVO (22 de Octubre de 2026, 9:00 AM) -->
+        <section class="timer-section" data-aos="flip-up">
+            <div class="timer-title">⏰ Gran Apertura en la Feria Empresarial</div>
+            <p style="margin: 0; font-size: 14px; color: #E0E0E0;">Faltan exactamente para el inicio de ventas (22 de Octubre de 2026, 9:00 AM):</p>
+
+            <div class="timer-display">
+                <div class="time-block">
+                    <span class="time-number" id="days">00</span>
+                    <span class="time-label">Días</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-number" id="hours">00</span>
+                    <span class="time-label">Horas</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-number" id="minutes">00</span>
+                    <span class="time-label">Min</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-number" id="seconds">00</span>
+                    <span class="time-label">Seg</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- BOTÓN STICKY FLOTANTE INFERIOR -->
+    <div class="sticky-bar">
+        <a href="https://instagram.com/Encantillo_coljp?text=Hola!%20Me%20interesa%20este%20producto" class="btn-sticky">
+            📩 Pedir por Instagram (@Encantillo_coljp)
+        </a>
+    </div>
+
+    <!-- LIBRERÍA AOS PARA ANIMACIONES AL HACER SCROLL -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Inicializar animaciones al scroll
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // LÓGICA DEL CONTEO REGRESIVO (22 de Octubre de 2026, 09:00 AM)
+        const targetDate = new Date("October 22, 2026 09:00:00").getTime();
+
+        const updateTimer = () => {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                document.getElementById("days").innerText = days < 10 ? '0' + days : days;
+                document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
+                document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+            } else {
+                document.querySelector(".timer-display").innerHTML = "<h3 style='color:#FFB300;'>¡LA FERIA HA COMENZADO! TE ESPERAMOS EN EL STAND 🍛</h3>";
+            }
+        };
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+</body>
+</html>
